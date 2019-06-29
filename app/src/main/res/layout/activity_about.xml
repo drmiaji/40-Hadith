@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.drmiaji.fortyahadith.About">
+
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <Button
+        android:id="@+id/rateUs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/app_bar"
+        android:background="#9e2723"
+        android:onClick="goToChap"
+        android:text="@string/feedBack"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        android:textStyle="normal|bold" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/rateUs"
+        android:background="#112442">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="10dp">
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:background="@android:drawable/presence_online"
+                android:paddingTop="10dp" />
+
+            <com.drmiaji.fortyahadith.CustomTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#112442"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:saveEnabled="true"
+                android:text="@string/about"
+                android:textAlignment="center"
+                android:textColor="#cfd8dc"
+                android:textSize="22sp" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"
+                android:background="@android:drawable/presence_online" />
+
+            <com.drmiaji.fortyahadith.CustomTextView
+                android:id="@+id/action_about_us"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#112442"
+                android:paddingLeft="10dp"
+                android:paddingTop="20dp"
+                android:paddingRight="10dp"
+                android:saveEnabled="true"
+                android:textAlignment="center"
+                android:textColor="#cfd8dc"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

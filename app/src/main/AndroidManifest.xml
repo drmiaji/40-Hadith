@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.drmiaji.fortyahadith">
+
+    <application
+        android:name=".CustomApp"
+        android:allowBackup="true"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/icon"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="www.drmiaji.com"
+                    android:pathPattern="/apps"
+                    android:scheme="http" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".About"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".Main2Activity"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".intro"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap01"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap02"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap03"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap04"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap05"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap06"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap07"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap08"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap09"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap10"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap11"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap12"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap13"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap14"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap15"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap16"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap17"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap18"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap19"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap20"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap21"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap22"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap23"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap24"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap25"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap26"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap27"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap28"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap29"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap30"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap31"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap32"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap33"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap34"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap35"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap36"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap37"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap38"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap39"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".chap40"
+            android:parentActivityName=".Main2Activity"
+            tools:targetApi="jelly_bean" />
+
+    </application>
+
+</manifest>
