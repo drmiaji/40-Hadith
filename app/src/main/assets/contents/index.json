@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "title": "প্রথম অধ্যায়ঃ",
+    "path": "chapter01.html"
+  },
+  {
+    "id": 2,
+    "title": "দ্বিতীয় অধ্যায়ঃ",
+    "path": "chapter02.html"
+  },
+  {
+    "id": 3,
+    "title": "তৃতীয় অধ্যায়ঃ",
+    "path": "chapter03.html"
+  },
+  {
+    "id": 4,
+    "title": "চতুর্থ  অধ্যায়ঃ",
+    "path": "chapter04.html"
+  },
+  {
+    "id": 5,
+    "title": "পঞ্চম অধ্যায়ঃ",
+    "path": "chapter05.html"
+  },
+  {
+    "id": 6,
+    "title": "ষষ্ঠ অধ্যায়ঃ",
+    "path": "chapter06.html"
+  },
+  {
+    "id": 7,
+    "title": "সপ্তম অধ্যায়ঃ",
+    "path": "chapter07.html"
+  },
+  {
+    "id": 8,
+    "title": "অষ্টম অধ্যায়ঃ",
+    "path": "chapter08.html"
+  },
+  {
+    "id": 9,
+    "title": "নবম অধ্যায়ঃ",
+    "path": "chapter09.html"
+  },
+  {
+    "id": 10,
+    "title": "দশম অধ্যায়ঃ",
+    "path": "chapter10.html"
+  }
+]
