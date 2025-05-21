@@ -1,7 +1,9 @@
-package com.drmiaji.webviewtemplate.ui
+package com.drmiaji.webviewtemplate
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.Menu
@@ -16,10 +18,10 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.net.toUri
-import com.drmiaji.webviewtemplate.R
 import com.drmiaji.webviewtemplate.activity.About
 import com.drmiaji.webviewtemplate.activity.BaseActivity
 import com.drmiaji.webviewtemplate.activity.SettingsActivity
+import com.drmiaji.webviewtemplate.data.model.DuaEntity
 import com.drmiaji.webviewtemplate.utils.ThemeUtils
 
 class WebViewActivity : BaseActivity() {
@@ -91,25 +93,11 @@ class WebViewActivity : BaseActivity() {
                 ThemeUtils.THEME_LIGHT -> "light"
                 else -> {
                     val nightModeFlags = resources.configuration.uiMode and
-                            android.content.res.Configuration.UI_MODE_NIGHT_MASK
-                    if (nightModeFlags == android.content.res.Configuration.UI_MODE_NIGHT_YES)
+                            Configuration.UI_MODE_NIGHT_MASK
+                    if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES)
                         "dark" else "light"
                 }
             }
-
-//        val fileName = intent.getStringExtra("fileName") ?: "chapter1.html"
-//
-//        // Determine the current theme mode
-//        val themeMode = ThemeUtils.getCurrentThemeMode(this)
-//        val themeClass = when (themeMode) {
-//            ThemeUtils.THEME_DARK -> "dark"
-//            ThemeUtils.THEME_LIGHT -> "light"
-//            else -> {
-//                // Fallback to system
-//                val nightModeFlags = resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK
-//                if (nightModeFlags == android.content.res.Configuration.UI_MODE_NIGHT_YES) "dark" else "light"
-//            }
-//        }
 
             // Load base.html template
             val baseHtml = assets.open("contents/base.html").bufferedReader().use { it.readText() }
@@ -123,6 +111,8 @@ class WebViewActivity : BaseActivity() {
                 .replace("{{THEME}}", themeClass)
                 .replace("{{STYLE}}", "")
 
+
+
             webView.loadDataWithBaseURL(
                 "file:///android_asset/contents/",
                 fullHtml,
@@ -132,6 +122,26 @@ class WebViewActivity : BaseActivity() {
             )
         }
     }
+
+    fun launchDuaWebView(context: Context, dua: DuaEntity) {
+        val htmlContent = """
+        <html>
+        <head><link rel="stylesheet" type="text/css" href="file:///android_asset/style.css" /></head>
+        <body>
+            <h2>${dua.enTranslation}</h2>
+            <div class="arabic">${dua.arDua}</div>
+            <p><i>${dua.enReference}</i></p>
+        </body>
+        </html>
+    """.trimIndent()
+
+        val intent = Intent(context, WebViewActivity::class.java).apply {
+            putExtra("title", "Dua")
+            putExtra("html", htmlContent)
+        }
+        context.startActivity(intent)
+    }
+
 
     /**
      * Sets a custom font to the toolbar title
