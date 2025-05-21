@@ -15,7 +15,6 @@ import androidx.core.view.size
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.drmiaji.webviewtemplate.R
-import com.drmiaji.webviewtemplate.WebViewActivity
 import com.drmiaji.webviewtemplate.activity.About
 import com.drmiaji.webviewtemplate.activity.BaseActivity
 import com.drmiaji.webviewtemplate.activity.SettingsActivity

@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme"> <!-- Unified theme -->
 
         <activity
-            android:name=".WebViewActivity"
+            android:name=".ui.WebViewActivity"
             android:exported="false"
             android:theme="@style/AppTheme"/>
 
