@@ -85,7 +85,7 @@ import androidx.compose.ui.unit.sp
 import com.drmiaji.webviewtemplate.activity.About
 import com.drmiaji.webviewtemplate.activity.SettingsActivity
 import com.drmiaji.webviewtemplate.ui.ChapterListActivity
-import com.drmiaji.webviewtemplate.ui.WebViewActivity
+import com.drmiaji.webviewtemplate.WebViewActivity
 import com.drmiaji.webviewtemplate.ui.theme.MyAppTheme
 import com.drmiaji.webviewtemplate.ui.theme.topBarColors
 import kotlinx.coroutines.launch

@@ -1,7 +1,8 @@
-package com.drmiaji.webviewtemplate.ui
+package com.drmiaji.webviewtemplate
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.Menu
@@ -16,7 +17,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.net.toUri
-import com.drmiaji.webviewtemplate.R
 import com.drmiaji.webviewtemplate.activity.About
 import com.drmiaji.webviewtemplate.activity.BaseActivity
 import com.drmiaji.webviewtemplate.activity.SettingsActivity
@@ -91,8 +91,8 @@ class WebViewActivity : BaseActivity() {
                 ThemeUtils.THEME_LIGHT -> "light"
                 else -> {
                     val nightModeFlags = resources.configuration.uiMode and
-                            android.content.res.Configuration.UI_MODE_NIGHT_MASK
-                    if (nightModeFlags == android.content.res.Configuration.UI_MODE_NIGHT_YES)
+                            Configuration.UI_MODE_NIGHT_MASK
+                    if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES)
                         "dark" else "light"
                 }
             }
