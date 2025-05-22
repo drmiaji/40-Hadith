@@ -79,6 +79,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -217,11 +218,18 @@ fun MainScreen(
                                                 context.startActivity(Intent(context, item.activityClass))
                                             }
                                             item.linkUrl != null -> {
-                                                val intent = Intent(context, WebViewActivity::class.java).apply {
-                                                    putExtra("title", item.title)
-                                                    putExtra("url", item.linkUrl)
+                                                if (item.linkUrl.contains("facebook.com")) {
+                                                    // Open in external browser
+                                                    val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(item.linkUrl))
+                                                    context.startActivity(browserIntent)
+                                                } else {
+                                                    // Open in WebViewActivity
+                                                    val intent = Intent(context, WebViewActivity::class.java).apply {
+                                                        putExtra("title", item.title)
+                                                        putExtra("url", item.linkUrl)
+                                                    }
+                                                    context.startActivity(intent)
                                                 }
-                                                context.startActivity(intent)
                                             }
                                         }
                                         scope.launch { drawerState.close() }
@@ -242,9 +250,11 @@ fun MainScreen(
             topBar = {
                 TopAppBar(
                     title = { Text(text = stringResource(id = R.string.app_name),
+                        modifier = Modifier.fillMaxWidth(),
                         style = TextStyle(
                             fontFamily = FontFamily(Font(R.font.solaimanlipi)),
                             fontWeight = FontWeight.Bold,
+                            textAlign = TextAlign.Center,
                             fontSize = 20.sp
                         )
                         ) },
@@ -265,7 +275,7 @@ fun MainScreen(
                                 DropdownMenuItem(
                                     text = { Text("About") },
                                     onClick = { context.startActivity(Intent(context,
-                                        ChapterListActivity::class.java)); showMenu = false }
+                                        About::class.java)); showMenu = false }
                                 )
                                 DropdownMenuItem(
                                     text = { Text("Settings") },
@@ -304,7 +314,7 @@ fun MainScreen(
                 contentAlignment = Alignment.Center
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.tajweed0),
+                    painter = painterResource(id = R.drawable.coverpage),
                     contentDescription = "App Logo",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
@@ -407,11 +417,13 @@ fun MyLogo(modifier: Modifier = Modifier) {
                     // App name with slightly enhanced styling
                     Text(
                         text = stringResource(id = R.string.app_name),
+                        modifier = Modifier.fillMaxWidth(), // Ensures horizontal centering space
                         style = TextStyle(
                             fontSize = 22.sp,
                             fontFamily = FontFamily(Font(R.font.solaimanlipi)),
                             fontWeight = FontWeight.Bold,
                             letterSpacing = 0.3.sp,
+                            textAlign = TextAlign.Center, // Aligns text within its bounds
                             shadow = Shadow(
                                 color = Color.Black.copy(alpha = 0.2f),
                                 offset = Offset(1f, 1f),
