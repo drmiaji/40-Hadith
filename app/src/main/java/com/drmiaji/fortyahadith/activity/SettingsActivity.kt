@@ -1,4 +1,4 @@
-package com.drmiaji.webviewtemplate.activity
+package com.drmiaji.fortyahadith.activity
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -6,9 +6,9 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
-import com.drmiaji.webviewtemplate.R
-import com.drmiaji.webviewtemplate.utils.SettingsFragment
-import com.drmiaji.webviewtemplate.utils.ThemeUtils
+import com.drmiaji.fortyahadith.R
+import com.drmiaji.fortyahadith.utils.SettingsFragment
+import com.drmiaji.fortyahadith.utils.ThemeUtils
 import com.google.android.material.appbar.MaterialToolbar
 
 class SettingsActivity : AppCompatActivity() {

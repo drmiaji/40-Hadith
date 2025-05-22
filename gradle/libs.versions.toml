@@ -5,7 +5,7 @@ asynclayoutinflater = "1.1.0"
 constraintlayout = "2.2.1"
 kotlin = "2.1.20"
 coreKtx = "1.16.0"
-kotlinStdlib = "2.1.20"
+kotlinStdlib = "2.1.21"
 lifecycleRuntimeKtx = "2.9.0"
 activityCompose = "1.10.1"
 composeBom = "2025.05.01"
@@ -16,8 +16,6 @@ navigationRuntimeAndroid = "2.9.0"
 navigationComposeJvmstubs = "2.9.0"
 uiTestAndroid = "1.8.2"
 preferenceKtx = "1.2.1"
-ksp = "2.1.20-2.0.1"
-room = "2.6.1"
 
 [libraries]
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
@@ -49,5 +47,4 @@ androidx-preference-ktx = { group = "androidx.preference", name = "preference-kt
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-
 

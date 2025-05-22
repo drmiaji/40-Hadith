@@ -1,4 +1,4 @@
-package com.drmiaji.webviewtemplate.models
+package com.drmiaji.fortyahadith.models
 
 data class ChapterItem(
     val title: String,

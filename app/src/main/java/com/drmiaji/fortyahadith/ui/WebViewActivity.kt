@@ -1,8 +1,7 @@
-package com.drmiaji.webviewtemplate
+package com.drmiaji.fortyahadith.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.Menu
@@ -17,10 +16,11 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.net.toUri
-import com.drmiaji.webviewtemplate.activity.About
-import com.drmiaji.webviewtemplate.activity.BaseActivity
-import com.drmiaji.webviewtemplate.activity.SettingsActivity
-import com.drmiaji.webviewtemplate.utils.ThemeUtils
+import com.drmiaji.fortyahadith.R
+import com.drmiaji.fortyahadith.activity.About
+import com.drmiaji.fortyahadith.activity.BaseActivity
+import com.drmiaji.fortyahadith.activity.SettingsActivity
+import com.drmiaji.fortyahadith.utils.ThemeUtils
 
 class WebViewActivity : BaseActivity() {
 
@@ -91,8 +91,8 @@ class WebViewActivity : BaseActivity() {
                 ThemeUtils.THEME_LIGHT -> "light"
                 else -> {
                     val nightModeFlags = resources.configuration.uiMode and
-                            Configuration.UI_MODE_NIGHT_MASK
-                    if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES)
+                            android.content.res.Configuration.UI_MODE_NIGHT_MASK
+                    if (nightModeFlags == android.content.res.Configuration.UI_MODE_NIGHT_YES)
                         "dark" else "light"
                 }
             }
@@ -177,7 +177,7 @@ class WebViewActivity : BaseActivity() {
             }
             R.id.more_apps -> {
                 val moreApp = Intent(Intent.ACTION_VIEW)
-                moreApp.setData("https://play.google.com/store/apps/details?id=com.drmiaji.webviewtemplate".toUri())
+                moreApp.setData("https://play.google.com/store/apps/details?id=com.drmiaji.fortyahadith".toUri())
                 startActivity(moreApp)
             }
             R.id.action_about_us -> {

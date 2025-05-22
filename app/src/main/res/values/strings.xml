@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WebView Template</string>
+    <string name="app_name">চল্লিশ হাদিস\nমুখস্ত রাখার ফযিলত</string>
     <string name="about_us">About us</string>
     <string name="about">www.drmiaji.com</string>
     <string name="action_content">সূচী/Content</string>
@@ -9,9 +9,10 @@
     <string name="action_share">বইটি শেয়ার করতে এখানে ক্লিক করুন!</string>
     <string name="feedBack">Please give us 5 star!\n৫ স্টার কাম্য!</string>
     <string name="more_apps">More Apps</string>
-    <string name="share_message">আসসালামু আলাইকুম ওয়ারাহমাতুল্লাহ\t \nশুদ্ধ করে কুরআন পড়ার জন্য তাজবীদের বই নিয়ে এই এপ। আমার খুব ভালো লেগেছে, আর আশা করি আপনারও ভালো লাগবে। নিচের লিংক থেকে আপনার Android ফোনে এই এপটি ইন্সটল করতে পারবেন। \nজাজাকুমুল্লাহু খাইরান!\t \nhttps://play.google.com/store/apps/details?id=com.drmiaji.webviewtemplate</string>
+    <string name="share_message">আসসালামু আলাইকুম ওয়ারাহমাতুল্লাহ\t \nগুরুত্বপূর্ণ ৪০টি হাদিস নিয়ে এই এপ। আমার খুব ভালো লেগেছে, আর আশা করি আপনারও ভালো লাগবে। নিচের লিংক থেকে আপনার Android ফোনে এই এপটি ইন্সটল করতে পারবেন। \nজাজাকুমুল্লাহু খাইরান!\t \nhttps://play.google.com/store/apps/details?id=com.drmiaji.fortyahadith</string>
     <string name="login_cancelled">Login Cancelled.</string>
     <string name="login_error">login_error</string>
+
     <!-- Strings related to login -->
     <string name="share_subject">Subject</string>
     <string name="enter_search_text">Enter search text</string>
@@ -22,10 +23,6 @@
     <string name="dr_abdul_baten_miaji">Dr Abdul Baten Miaji</string>
     <string name="email">bmiaji@gmail.com</string>
     <string name="be_connected">Be Connected</string>
-    <string name="watch_islamic_video">জনপ্রিয় ইসলামিক ইউটিউব চ্যানেলসমূহ</string>
-    <string name="gausul_azam">মুফতি বখতিয়ার উদ্দিন আল কাদেরী</string>
-    <string name="ajmeer">আজমীর রেকর্ডিংঃ বাংলা ওয়াযের সম্ভার</string>
-    <string name="naat">ইসলামী হামদ ও না\'ত</string>
     <string name="islamic_websites">Islamic Websites</string>
     <string name="bokhtiyar">মুফতি মুহাম্মদ বখতিয়ার উদ্দিন</string>
     <string name="dr_allama_tahirul_qadri">Dr Allama Tahirul Qadri</string>

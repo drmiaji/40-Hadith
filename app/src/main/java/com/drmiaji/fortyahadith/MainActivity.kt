@@ -1,4 +1,4 @@
-package com.drmiaji.webviewtemplate
+package com.drmiaji.fortyahadith
 
 import android.app.Activity
 import android.content.Intent
@@ -82,12 +82,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.drmiaji.webviewtemplate.activity.About
-import com.drmiaji.webviewtemplate.activity.SettingsActivity
-import com.drmiaji.webviewtemplate.ui.ChapterListActivity
-import com.drmiaji.webviewtemplate.WebViewActivity
-import com.drmiaji.webviewtemplate.ui.theme.MyAppTheme
-import com.drmiaji.webviewtemplate.ui.theme.topBarColors
+import com.drmiaji.fortyahadith.activity.About
+import com.drmiaji.fortyahadith.activity.SettingsActivity
+import com.drmiaji.fortyahadith.ui.ChapterListActivity
+import com.drmiaji.fortyahadith.ui.WebViewActivity
+import com.drmiaji.fortyahadith.ui.theme.MyAppTheme
+import com.drmiaji.fortyahadith.ui.theme.topBarColors
 import kotlinx.coroutines.launch
 import androidx.core.net.toUri
 

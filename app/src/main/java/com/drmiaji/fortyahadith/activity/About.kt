@@ -1,4 +1,4 @@
-package com.drmiaji.webviewtemplate.activity
+package com.drmiaji.fortyahadith.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,7 +11,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.net.toUri
-import com.drmiaji.webviewtemplate.R
+import com.drmiaji.fortyahadith.R
 import com.google.android.material.appbar.MaterialToolbar
 
 class About : AppCompatActivity() {
@@ -69,7 +69,7 @@ class About : AppCompatActivity() {
             }
             R.id.more_apps -> {
                 val moreApp = Intent(Intent.ACTION_VIEW)
-                moreApp.setData("https://play.google.com/store/apps/details?id=com.drmiaji.webviewtemplate".toUri())
+                moreApp.setData("https://play.google.com/store/apps/details?id=com.drmiaji.fortyahadith".toUri())
                 startActivity(moreApp)
             }
             R.id.action_about_us -> {

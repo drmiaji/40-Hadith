@@ -1,4 +1,4 @@
-package com.drmiaji.webviewtemplate.ui
+package com.drmiaji.fortyahadith.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -14,14 +14,13 @@ import androidx.core.view.get
 import androidx.core.view.size
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.drmiaji.webviewtemplate.R
-import com.drmiaji.webviewtemplate.WebViewActivity
-import com.drmiaji.webviewtemplate.activity.About
-import com.drmiaji.webviewtemplate.activity.BaseActivity
-import com.drmiaji.webviewtemplate.activity.SettingsActivity
-import com.drmiaji.webviewtemplate.adapter.ChapterAdapter
-import com.drmiaji.webviewtemplate.models.ChapterItem
-import com.drmiaji.webviewtemplate.viewmodel.ChapterViewModel
+import com.drmiaji.fortyahadith.R
+import com.drmiaji.fortyahadith.activity.About
+import com.drmiaji.fortyahadith.activity.BaseActivity
+import com.drmiaji.fortyahadith.activity.SettingsActivity
+import com.drmiaji.fortyahadith.adapter.ChapterAdapter
+import com.drmiaji.fortyahadith.models.ChapterItem
+import com.drmiaji.fortyahadith.viewmodel.ChapterViewModel
 import com.google.android.material.appbar.MaterialToolbar
 
 
@@ -128,7 +127,7 @@ class ChapterListActivity : BaseActivity() {
             }
             R.id.more_apps -> {
                 val moreApp = Intent(Intent.ACTION_VIEW)
-                moreApp.setData("https://play.google.com/store/apps/details?id=com.drmiaji.webviewtemplate".toUri())
+                moreApp.setData("https://play.google.com/store/apps/details?id=com.drmiaji.fortyahadith".toUri())
                 startActivity(moreApp)
             }
             R.id.action_about_us -> {

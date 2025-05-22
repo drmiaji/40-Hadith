@@ -1,13 +1,13 @@
-package com.drmiaji.webviewtemplate.adapter
+package com.drmiaji.fortyahadith.adapter
 
 import android.content.Context
 import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.drmiaji.webviewtemplate.databinding.ItemChapterBinding
-import com.drmiaji.webviewtemplate.models.ChapterItem
-import com.drmiaji.webviewtemplate.utils.HighlightSpanBuilder
+import com.drmiaji.fortyahadith.databinding.ItemChapterBinding
+import com.drmiaji.fortyahadith.models.ChapterItem
+import com.drmiaji.fortyahadith.utils.HighlightSpanBuilder
 
 class ChapterAdapter(
     private var items: List<ChapterItem>, // ← now it's mutable (var)
