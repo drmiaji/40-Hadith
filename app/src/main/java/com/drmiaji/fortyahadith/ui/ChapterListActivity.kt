@@ -18,22 +18,24 @@ import com.drmiaji.fortyahadith.R
 import com.drmiaji.fortyahadith.activity.About
 import com.drmiaji.fortyahadith.activity.BaseActivity
 import com.drmiaji.fortyahadith.activity.SettingsActivity
-import com.drmiaji.fortyahadith.adapter.ChapterAdapter
+import com.drmiaji.fortyahadith.adapter.HadithAdapter
+import com.drmiaji.fortyahadith.data.Hadith
 import com.drmiaji.fortyahadith.models.ChapterItem
+import com.drmiaji.fortyahadith.utils.loadHadiths
 import com.drmiaji.fortyahadith.viewmodel.ChapterViewModel
 import com.google.android.material.appbar.MaterialToolbar
 
 
 class ChapterListActivity : BaseActivity() {
-    private val viewModel: ChapterViewModel by viewModels()
-    private lateinit var adapter: ChapterAdapter
-    private var allChapters: List<ChapterItem> = emptyList()
+    private lateinit var adapter: HadithAdapter
+    private var allHadiths: List<Hadith> = emptyList()
 
     override fun getLayoutResource() = R.layout.activity_chapter_list
 
     override fun onActivityReady(savedInstanceState: Bundle?) {
         val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
         val titleTextView = findViewById<TextView>(R.id.toolbar_title)
+        allHadiths = loadHadiths(this)
 
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -43,8 +45,6 @@ class ChapterListActivity : BaseActivity() {
         val typeface = ResourcesCompat.getFont(this, R.font.solaimanlipi)
         titleTextView.typeface = typeface
 
-      //  setCustomFontToTitle(toolbar)
-        // Optional: Tint the back arrow (navigation icon)
         val iconColor = ContextCompat.getColor(this, R.color.toolbar_icon_color)
         toolbar.navigationIcon?.let { drawable ->
             val wrapped = DrawableCompat.wrap(drawable).mutate()
@@ -55,33 +55,28 @@ class ChapterListActivity : BaseActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.chapter_recycler)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        viewModel.chapters.observe(this) { list ->
-            allChapters = list
-            adapter = ChapterAdapter(list) { chapter ->
-                val intent = Intent(this, WebViewActivity::class.java)
-                intent.putExtra("fileName", chapter.file)
-                intent.putExtra("title", chapter.title)
-                startActivity(intent)
-            }
-            recyclerView.adapter = adapter
+        adapter = HadithAdapter(allHadiths) { hadith ->
+            val intent = Intent(this, WebViewActivity::class.java)
+            intent.putExtra("hadith_id", hadith.id)
+            intent.putExtra("title", hadith.title)
+            startActivity(intent)
         }
+        recyclerView.adapter = adapter
     }
 
     private fun filterChapters(query: String) {
         val filtered = if (query.isBlank()) {
-            allChapters
+            allHadiths
         } else {
-            allChapters.filter {
+            allHadiths.filter {
                 it.title.contains(query, ignoreCase = true)
             }
         }
-        // Pass the query to the adapter for highlighting
-        adapter.updateData(filtered, query)
+        adapter.updateData(filtered)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.action_menu, menu)
-
         val iconColor = ContextCompat.getColor(this, R.color.toolbar_icon_color)
         for (i in 0 until menu.size) {
             val menuItem = menu[i]
@@ -92,19 +87,16 @@ class ChapterListActivity : BaseActivity() {
 
         val searchItem = menu.findItem(R.id.action_search)
         val searchView = searchItem.actionView as? androidx.appcompat.widget.SearchView
-        searchView?.queryHint = "Search chapters..."
-
+        searchView?.queryHint = "Search hadiths..."
         searchView?.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
-
             override fun onQueryTextChange(newText: String?): Boolean {
                 filterChapters(newText.orEmpty())
                 return true
             }
         })
-
         return true
     }
 

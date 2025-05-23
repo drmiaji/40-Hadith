@@ -70,6 +70,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose.jvmstubs)
     implementation(libs.androidx.ui.test.android)
     implementation(libs.androidx.preference.ktx)
+    implementation(libs.firebase.crashlytics.buildtools)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.androidx.appcompat)
@@ -77,4 +78,5 @@ dependencies {
     // Material Design
     implementation(libs.androidx.material.icons.core)
     implementation(libs.androidx.material.icons.extended)
+    implementation(libs.gson)
 }

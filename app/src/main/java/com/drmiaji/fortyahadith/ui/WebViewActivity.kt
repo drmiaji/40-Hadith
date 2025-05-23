@@ -21,6 +21,7 @@ import com.drmiaji.fortyahadith.activity.About
 import com.drmiaji.fortyahadith.activity.BaseActivity
 import com.drmiaji.fortyahadith.activity.SettingsActivity
 import com.drmiaji.fortyahadith.utils.ThemeUtils
+import com.drmiaji.fortyahadith.utils.loadHadiths
 
 class WebViewActivity : BaseActivity() {
 
@@ -46,7 +47,6 @@ class WebViewActivity : BaseActivity() {
         }
 
         val webView = findViewById<WebView>(R.id.webview)
-        // Add progress indicator
         val progressBar = findViewById<ProgressBar>(R.id.progressBar)
 
         webView.webViewClient = object : WebViewClient() {
@@ -60,30 +60,67 @@ class WebViewActivity : BaseActivity() {
                 progressBar?.visibility = View.GONE
             }
         }
-//        webView.webViewClient = WebViewClient()
-//        webView.settings.javaScriptEnabled = true
 
-        // Enable zoom functionality
         webView.settings.apply {
             javaScriptEnabled = true
             setSupportZoom(true)
             builtInZoomControls = true
-            displayZoomControls = false // Hide the default zoom controls
-            useWideViewPort = true // Enables viewport meta tags
-            loadWithOverviewMode = true // Fits content to screen
-
-            // Optional: Increase text size if needed
-            // textZoom = 120 // Set text zoom percentage (100 is normal)
+            displayZoomControls = false
+            useWideViewPort = true
+            loadWithOverviewMode = true
         }
 
-        // Check if we're loading an external URL or internal file
+        // --------- CHANGED SECTION STARTS HERE -------------
         val externalUrl = intent.getStringExtra("url")
+        val hadithId = intent.getIntExtra("hadith_id", -1)
 
         if (externalUrl != null) {
             // Load external URL
             webView.loadUrl(externalUrl)
+        } else if (hadithId != -1) {
+            // Load from JSON using hadith_id
+            val hadithList = loadHadiths(this)
+            val hadith = hadithList.find { it.id == hadithId }
+
+            if (hadith != null) {
+                val themeMode = ThemeUtils.getCurrentThemeMode(this)
+                val themeClass = when (themeMode) {
+                    ThemeUtils.THEME_DARK -> "dark"
+                    ThemeUtils.THEME_LIGHT -> "light"
+                    else -> {
+                        val nightModeFlags = resources.configuration.uiMode and
+                                android.content.res.Configuration.UI_MODE_NIGHT_MASK
+                        if (nightModeFlags == android.content.res.Configuration.UI_MODE_NIGHT_YES)
+                            "dark" else "light"
+                    }
+                }
+                val html = """
+                    <html>
+                    <head>
+                        <link rel="stylesheet" type="text/css" href="file:///android_asset/style.css">
+                    </head>
+                    <body class="$themeClass">
+                        <h2>${hadith.title}</h2>
+                        <div class="arabic">${hadith.arabic}</div>
+                        <div class="transliteration">${hadith.transliteration}</div>
+                        <div class="translation">${hadith.translation}</div>
+                        <div class="reference">${hadith.reference}</div>
+                    </body>
+                    </html>
+                """.trimIndent()
+                webView.loadDataWithBaseURL(
+                    "file:///android_asset/",
+                    html,
+                    "text/html",
+                    "utf-8",
+                    null
+                )
+            } else {
+                // Fallback: Show error or load default
+                webView.loadData("<h2>Hadith not found</h2>", "text/html", "utf-8")
+            }
         } else {
-            // Existing code for loading internal HTML files
+            // Fallback: legacy HTML file loading if no hadith_id
             val fileName = intent.getStringExtra("fileName") ?: "chapter1.html"
             val themeMode = ThemeUtils.getCurrentThemeMode(this)
             val themeClass = when (themeMode) {
@@ -96,28 +133,9 @@ class WebViewActivity : BaseActivity() {
                         "dark" else "light"
                 }
             }
-
-//        val fileName = intent.getStringExtra("fileName") ?: "chapter1.html"
-//
-//        // Determine the current theme mode
-//        val themeMode = ThemeUtils.getCurrentThemeMode(this)
-//        val themeClass = when (themeMode) {
-//            ThemeUtils.THEME_DARK -> "dark"
-//            ThemeUtils.THEME_LIGHT -> "light"
-//            else -> {
-//                // Fallback to system
-//                val nightModeFlags = resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK
-//                if (nightModeFlags == android.content.res.Configuration.UI_MODE_NIGHT_YES) "dark" else "light"
-//            }
-//        }
-
-            // Load base.html template
             val baseHtml = assets.open("contents/base.html").bufferedReader().use { it.readText() }
-            // Load content HTML
             val contentHtml =
                 assets.open("contents/topics/$fileName").bufferedReader().use { it.readText() }
-
-            // Inject content and theme into template
             val fullHtml = baseHtml
                 .replace("{{CONTENT}}", contentHtml)
                 .replace("{{THEME}}", themeClass)
