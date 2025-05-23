@@ -10,9 +10,11 @@ import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.drmiaji.fortyahadith.data.Hadith
 import com.drmiaji.fortyahadith.databinding.ItemChapterBinding
+import com.drmiaji.fortyahadith.utils.HadithDiffCallback
 
 class HadithAdapter(
     private var items: List<Hadith>,
@@ -55,9 +57,12 @@ class HadithAdapter(
     }
 
     fun updateData(newList: List<Hadith>, query: String = "") {
+        val diffCallback = HadithDiffCallback(items, newList)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+
         items = newList
         searchQuery = query
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 
     // Helper to highlight search query

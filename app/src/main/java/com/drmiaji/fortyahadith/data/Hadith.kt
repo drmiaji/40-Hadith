@@ -6,5 +6,6 @@ data class Hadith(
     val arabic: String,
     val translation: String,
     val transliteration: String,
-    val reference: String
+    val reference: String,
+    val body: String
 )
