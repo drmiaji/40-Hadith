@@ -133,8 +133,6 @@ fun MainScreen(
             items = listOf(
                 DrawerItem("ড. মু. তাহিরুল কাদেরী", "YouTube", R.drawable.youtube, linkUrl = "https://youtube.com/tahirulqadri"),
                 DrawerItem("Dr Miaji|Official", "YouTube", R.drawable.youtube, linkUrl = "https://www.youtube.com/@bmiaji"),
-                DrawerItem("গাউসুল আজম", "YouTube", R.drawable.youtube, linkUrl = "https://youtube.com/gausulazam"),
-                DrawerItem("আজমীর শরীফ", "YouTube", R.drawable.youtube, linkUrl = "https://youtube.com/ajmeer"),
             )
         ),
         DrawerMenuGroup(

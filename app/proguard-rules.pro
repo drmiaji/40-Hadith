@@ -19,8 +19,11 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
--keep class com.yourpackage.model.** { *; }
+-keep class com.drmiaji.fortyahadith.model.** { *; }
+-keep class com.drmiaji.fortyahadith.** { *; }
 -keepclassmembers class * {
     @com.google.gson.annotations.SerializedName <fields>;
 }
+-keep class com.yourpackage.model.** { *; }
 -keepattributes Signature
+-keepattributes *Annotation*
