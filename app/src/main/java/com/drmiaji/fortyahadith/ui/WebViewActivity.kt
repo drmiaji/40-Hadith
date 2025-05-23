@@ -62,12 +62,12 @@ class WebViewActivity : BaseActivity() {
         }
 
         webView.settings.apply {
-            javaScriptEnabled = true
-            setSupportZoom(true)
-            builtInZoomControls = true
-            displayZoomControls = false
+            javaScriptEnabled = false // Unless you need JS
             useWideViewPort = true
             loadWithOverviewMode = true
+            builtInZoomControls = true
+            displayZoomControls = false
+            textZoom = 110 // Or as preferred
         }
 
         // --------- CHANGED SECTION STARTS HERE -------------
@@ -97,7 +97,8 @@ class WebViewActivity : BaseActivity() {
                 val html = """
                     <html>
                     <head>
-                        <link rel="stylesheet" type="text/css" href="file:///android_asset/style.css">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <link rel="stylesheet" type="text/css" href="file:///android_asset/contents/style.css">
                     </head>
                     <body class="$themeClass">
                         <h2>${hadith.title}</h2>
