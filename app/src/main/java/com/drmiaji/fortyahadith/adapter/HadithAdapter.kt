@@ -19,14 +19,10 @@ class HadithAdapter(
     private val onClick: (Hadith) -> Unit
 ) : RecyclerView.Adapter<HadithAdapter.ViewHolder>() {
 
-    companion object {
-        fun stripHtml(html: String): String {
-            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY).toString()
-            } else {
-                Html.fromHtml(html).toString()
-            }
-        }
+    fun stripHtml(html: String): String {
+        val spanned = Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY).toString()
+        // Remove leading/trailing and internal blank lines
+        return spanned.replace(Regex("[\\r\\n]+"), " ").trim()
     }
 
     private var searchQuery: String = ""
