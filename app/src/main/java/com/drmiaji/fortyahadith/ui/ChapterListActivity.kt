@@ -1,9 +1,11 @@
 package com.drmiaji.fortyahadith.ui
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
@@ -64,15 +66,13 @@ class ChapterListActivity : BaseActivity() {
         recyclerView.adapter = adapter
     }
 
-    private fun filterChapters(query: String) {
+    private fun filterHadiths(query: String) {
         val filtered = if (query.isBlank()) {
             allHadiths
         } else {
-            allHadiths.filter {
-                it.title.contains(query, ignoreCase = true)
-            }
+            allHadiths.filter { it.title.contains(query, ignoreCase = true) }
         }
-        adapter.updateData(filtered)
+        adapter.updateData(filtered, query)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -87,13 +87,15 @@ class ChapterListActivity : BaseActivity() {
 
         val searchItem = menu.findItem(R.id.action_search)
         val searchView = searchItem.actionView as? androidx.appcompat.widget.SearchView
+        // Change the text color
+        val searchEditText = searchView?.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+        searchEditText?.setTextColor(Color.WHITE) // Your desired color
+        searchEditText?.setHintTextColor(Color.GRAY) // Optional: hint color
         searchView?.queryHint = "Search hadiths..."
         searchView?.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
-            }
+            override fun onQueryTextSubmit(query: String?): Boolean = false
             override fun onQueryTextChange(newText: String?): Boolean {
-                filterChapters(newText.orEmpty())
+                filterHadiths(newText.orEmpty())
                 return true
             }
         })
@@ -119,7 +121,7 @@ class ChapterListActivity : BaseActivity() {
             }
             R.id.more_apps -> {
                 val moreApp = Intent(Intent.ACTION_VIEW)
-                moreApp.setData("https://play.google.com/store/apps/details?id=com.drmiaji.fortyahadith".toUri())
+                moreApp.setData("https://play.google.com/store/apps/dev?id=5204491413792621474".toUri())
                 startActivity(moreApp)
             }
             R.id.action_about_us -> {

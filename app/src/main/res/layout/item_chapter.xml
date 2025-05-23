@@ -21,6 +21,7 @@
         android:textColor="@color/chapter_text_color"
         android:background="@color/chapter_bg_color"
         android:textSize="16sp"
+        android:fontFamily="@font/solaimanlipi"
         android:textStyle="bold" />
 
     <View
