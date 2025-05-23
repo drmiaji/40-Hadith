@@ -13,7 +13,6 @@
         android:hint="@string/enter_search_text"
         android:imeOptions="actionSearch"
         android:inputType="text"
-        android:textColor="@color/white"
         android:maxLines="1" />
 
 </LinearLayout>

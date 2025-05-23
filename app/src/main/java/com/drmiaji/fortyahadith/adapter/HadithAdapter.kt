@@ -2,6 +2,8 @@ package com.drmiaji.fortyahadith.adapter
 
 import android.graphics.Color
 import android.graphics.Typeface
+import android.os.Build
+import android.text.Html
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
@@ -17,6 +19,16 @@ class HadithAdapter(
     private val onClick: (Hadith) -> Unit
 ) : RecyclerView.Adapter<HadithAdapter.ViewHolder>() {
 
+    companion object {
+        fun stripHtml(html: String): String {
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY).toString()
+            } else {
+                Html.fromHtml(html).toString()
+            }
+        }
+    }
+
     private var searchQuery: String = ""
 
     inner class ViewHolder(private val binding: ItemChapterBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -29,6 +41,7 @@ class HadithAdapter(
             } else {
                 binding.chapterTitle.text = item.title
             }
+            binding.chapterTitle.text = stripHtml(item.title)
             binding.chapterTitle.setTypeface(typeface, Typeface.BOLD)
             binding.root.setOnClickListener { onClick(item) }
         }

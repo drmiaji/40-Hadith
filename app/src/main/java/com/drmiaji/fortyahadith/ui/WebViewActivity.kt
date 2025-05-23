@@ -196,7 +196,7 @@ class WebViewActivity : BaseActivity() {
             }
             R.id.more_apps -> {
                 val moreApp = Intent(Intent.ACTION_VIEW)
-                moreApp.setData("https://play.google.com/store/apps/details?id=com.drmiaji.fortyahadith".toUri())
+                moreApp.setData("https://play.google.com/store/apps/dev?id=5204491413792621474".toUri())
                 startActivity(moreApp)
             }
             R.id.action_about_us -> {

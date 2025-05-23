@@ -17,11 +17,11 @@
         android:id="@+id/chapter_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/chapter_bg_color"
+        android:fontFamily="@font/solaimanlipi"
         android:padding="12dp"
         android:textColor="@color/chapter_text_color"
-        android:background="@color/chapter_bg_color"
         android:textSize="16sp"
-        android:fontFamily="@font/solaimanlipi"
         android:textStyle="bold" />
 
     <View
