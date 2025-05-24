@@ -32,7 +32,8 @@ class WebViewActivity : BaseActivity() {
     override fun getLayoutResource() = R.layout.activity_webview
     private lateinit var webView: WebView
     private var currentIndex = 0
-    private lateinit var chapters: List<Hadith> // all chapters
+    private lateinit var chapters: List<Hadith>
+    private var currentThemeMode = ""
 
     private val gestureDetector by lazy {
         GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
@@ -57,6 +58,13 @@ class WebViewActivity : BaseActivity() {
 
     @SuppressLint("SetJavaScriptEnabled", "ClickableViewAccessibility")
     override fun onActivityReady(savedInstanceState: Bundle?) {
+        currentThemeMode = ThemeUtils.getCurrentThemeMode(this)
+        setupToolbar()
+        setupWebView()
+        loadInitialContent()
+    }
+
+    private fun setupToolbar() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
@@ -72,7 +80,10 @@ class WebViewActivity : BaseActivity() {
             DrawableCompat.setTint(wrapped, iconColor)
             toolbar.navigationIcon = wrapped
         }
+    }
 
+    @SuppressLint("ClickableViewAccessibility", "SetJavaScriptEnabled")
+    private fun setupWebView() {
         webView = findViewById(R.id.webview)
         val progressBar = findViewById<ProgressBar>(R.id.progressBar)
 
@@ -88,82 +99,68 @@ class WebViewActivity : BaseActivity() {
         }
 
         webView.settings.apply {
-            javaScriptEnabled = true // Required for toggle functionality
+            javaScriptEnabled = true
             useWideViewPort = true
             loadWithOverviewMode = true
             builtInZoomControls = true
             displayZoomControls = false
             textZoom = 110
-            domStorageEnabled = true // Required for localStorage
+            domStorageEnabled = true
             allowFileAccess = true
             allowContentAccess = true
         }
 
         webView.setOnTouchListener { _, event -> gestureDetector.onTouchEvent(event) }
+    }
 
+    private fun loadInitialContent() {
         val externalUrl = intent.getStringExtra("url")
         val hadithId = intent.getIntExtra("hadith_id", -1)
 
-        if (externalUrl != null) {
-            webView.loadUrl(externalUrl)
-        } else if (hadithId != -1) {
-            chapters = loadHadiths(this)
-            currentIndex = chapters.indexOfFirst { it.id == hadithId }.takeIf { it >= 0 } ?: 0
-
-            if (chapters.isNotEmpty() && currentIndex in chapters.indices) {
-                loadCurrentChapter()
-            } else {
-                webView.loadData("<h2>Hadith not found</h2>", "text/html", "utf-8")
-            }
-        } else {
-            val fileName = intent.getStringExtra("fileName") ?: "chapter1.html"
-            val themeMode = ThemeUtils.getCurrentThemeMode(this)
-            val themeClass = when (themeMode) {
-                ThemeUtils.THEME_DARK -> "dark"
-                ThemeUtils.THEME_LIGHT -> "light"
-                else -> {
-                    val nightModeFlags = resources.configuration.uiMode and
-                            android.content.res.Configuration.UI_MODE_NIGHT_MASK
-                    if (nightModeFlags == android.content.res.Configuration.UI_MODE_NIGHT_YES)
-                        "dark" else "light"
-                }
-            }
-            val baseHtml = assets.open("contents/base.html").bufferedReader().use { it.readText() }
-            val contentHtml =
-                assets.open("contents/topics/$fileName").bufferedReader().use { it.readText() }
-            val fullHtml = baseHtml
-                .replace("{{CONTENT}}", contentHtml)
-                .replace("{{THEME}}", themeClass)
-                .replace("{{STYLE}}", "")
-
-            webView.loadDataWithBaseURL(
-                "file:///android_asset/contents/",
-                fullHtml,
-                "text/html",
-                "utf-8",
-                null
-            )
+        when {
+            externalUrl != null -> webView.loadUrl(externalUrl)
+            hadithId != -1 -> loadHadithContent(hadithId)
+            else -> loadHtmlContent()
         }
+    }
+
+    private fun loadHadithContent(hadithId: Int) {
+        chapters = loadHadiths(this)
+        currentIndex = chapters.indexOfFirst { it.id == hadithId }.takeIf { it >= 0 } ?: 0
+
+        if (chapters.isNotEmpty() && currentIndex in chapters.indices) {
+            loadCurrentChapter()
+        } else {
+            webView.loadData("<h2>Hadith not found</h2>", "text/html", "utf-8")
+        }
+    }
+
+    private fun loadHtmlContent() {
+        val fileName = intent.getStringExtra("fileName") ?: "chapter1.html"
+        val themeClass = getCurrentThemeClass()
+
+        val baseHtml = assets.open("contents/base.html").bufferedReader().use { it.readText() }
+        val contentHtml = assets.open("contents/topics/$fileName").bufferedReader().use { it.readText() }
+        val fullHtml = baseHtml
+            .replace("{{CONTENT}}", contentHtml)
+            .replace("{{THEME}}", themeClass)
+            .replace("{{STYLE}}", "")
+
+        webView.loadDataWithBaseURL(
+            "file:///android_asset/contents/",
+            fullHtml,
+            "text/html",
+            "utf-8",
+            null
+        )
     }
 
     private fun loadCurrentChapter() {
         if (chapters.isNotEmpty() && currentIndex in chapters.indices) {
             val hadith = chapters[currentIndex]
-            val themeMode = ThemeUtils.getCurrentThemeMode(this)
-            val themeClass = when (themeMode) {
-                ThemeUtils.THEME_DARK -> "dark"
-                ThemeUtils.THEME_LIGHT -> "light"
-                else -> {
-                    val nightModeFlags = resources.configuration.uiMode and
-                            android.content.res.Configuration.UI_MODE_NIGHT_MASK
-                    if (nightModeFlags == android.content.res.Configuration.UI_MODE_NIGHT_YES)
-                        "dark" else "light"
-                }
-            }
+            val themeClass = getCurrentThemeClass()
 
             val baseHtml = assets.open("contents/base.html").bufferedReader().use { it.readText() }
-
-            // Build content HTML with proper CSS classes
             val contentHtml = """
                 <h2>${hadith.title}</h2>
                 <div class="arabic">${hadith.arabic}</div>
@@ -187,6 +184,29 @@ class WebViewActivity : BaseActivity() {
         }
     }
 
+    private fun getCurrentThemeClass(): String {
+        return when (ThemeUtils.getCurrentThemeMode(this)) {
+            ThemeUtils.THEME_DARK -> "dark"
+            ThemeUtils.THEME_LIGHT -> "light"
+            else -> {
+                val nightModeFlags = resources.configuration.uiMode and
+                        android.content.res.Configuration.UI_MODE_NIGHT_MASK
+                if (nightModeFlags == android.content.res.Configuration.UI_MODE_NIGHT_YES)
+                    "dark" else "light"
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val newThemeMode = ThemeUtils.getCurrentThemeMode(this)
+        if (newThemeMode != currentThemeMode) {
+            currentThemeMode = newThemeMode
+            recreate()
+        }
+    }
+
+    // Rest of the methods remain unchanged...
     private fun loadPreviousChapter() {
         if (currentIndex > 0) {
             currentIndex--
@@ -219,33 +239,35 @@ class WebViewActivity : BaseActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val itemId = item.itemId
-        when (itemId) {
+        return when (item.itemId) {
             android.R.id.home -> {
                 onBackPressedDispatcher.onBackPressed()
                 true
             }
             R.id.share -> {
-                val myIntent = Intent(Intent.ACTION_SEND)
-                myIntent.setType("text/plain")
-                val shareSub: String? = getString(R.string.share_subject)
-                val shareBody: String? = getString(R.string.share_message)
-                myIntent.putExtra(Intent.EXTRA_TEXT, shareSub)
-                myIntent.putExtra(Intent.EXTRA_TEXT, shareBody)
-                startActivity(Intent.createChooser(myIntent, "Share using!"))
+                val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_subject))
+                    putExtra(Intent.EXTRA_TEXT, getString(R.string.share_message))
+                }
+                startActivity(Intent.createChooser(shareIntent, "Share using"))
+                true
             }
             R.id.more_apps -> {
-                val moreApp = Intent(Intent.ACTION_VIEW)
-                moreApp.setData("https://play.google.com/store/apps/dev?id=5204491413792621474".toUri())
-                startActivity(moreApp)
+                startActivity(Intent(Intent.ACTION_VIEW).apply {
+                    data = "https://play.google.com/store/apps/dev?id=5204491413792621474".toUri()
+                })
+                true
             }
             R.id.action_about_us -> {
                 startActivity(Intent(this, About::class.java))
+                true
             }
             R.id.settings -> {
                 startActivity(Intent(this, SettingsActivity::class.java))
+                true
             }
+            else -> super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
     }
 }
