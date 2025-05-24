@@ -88,18 +88,16 @@ class WebViewActivity : BaseActivity() {
         }
 
         webView.settings.apply {
-            javaScriptEnabled = true // FIXED: Enable JavaScript for theme toggle
+            javaScriptEnabled = true // Required for toggle functionality
             useWideViewPort = true
             loadWithOverviewMode = true
             builtInZoomControls = true
             displayZoomControls = false
             textZoom = 110
-            domStorageEnabled = true // Enable DOM storage
+            domStorageEnabled = true // Required for localStorage
             allowFileAccess = true
             allowContentAccess = true
         }
-
-        // JavaScript interface removed for compatibility
 
         webView.setOnTouchListener { _, event -> gestureDetector.onTouchEvent(event) }
 
@@ -163,8 +161,9 @@ class WebViewActivity : BaseActivity() {
                 }
             }
 
-            // FIXED: Use base.html template for consistency
             val baseHtml = assets.open("contents/base.html").bufferedReader().use { it.readText() }
+
+            // Build content HTML with proper CSS classes
             val contentHtml = """
                 <h2>${hadith.title}</h2>
                 <div class="arabic">${hadith.arabic}</div>

@@ -50,6 +50,75 @@ document.addEventListener("DOMContentLoaded", function() {
         console.error("Theme toggle button not found!");
     }
 
+    // Transliteration toggle functionality
+    var transliterationToggle = document.getElementById('transliterationToggle');
+    if (transliterationToggle) {
+        console.log("Setting up transliteration toggle...");
+
+        var showTransliteration = true; // Default state
+
+        // Load saved preference from localStorage
+        try {
+            var saved = localStorage.getItem('showTransliteration');
+            if (saved !== null) {
+                showTransliteration = saved === 'true';
+                console.log("Loaded transliteration preference:", showTransliteration);
+            }
+        } catch (e) {
+            console.warn("localStorage not available for transliteration preference");
+        }
+
+        // Apply initial state
+        updateTransliterationDisplay();
+
+        // Add click event listener
+        transliterationToggle.onclick = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            showTransliteration = !showTransliteration;
+            console.log("Transliteration toggled to:", showTransliteration);
+
+            updateTransliterationDisplay();
+
+            // Save preference
+            try {
+                localStorage.setItem('showTransliteration', showTransliteration.toString());
+                console.log("Transliteration preference saved");
+            } catch (e) {
+                console.warn("Could not save transliteration preference to localStorage");
+            }
+
+            return false;
+        };
+
+        function updateTransliterationDisplay() {
+            var transliterationElements = document.querySelectorAll('.transliteration');
+            console.log("Found", transliterationElements.length, "transliteration elements");
+
+            transliterationElements.forEach(function(element) {
+                if (showTransliteration) {
+                    element.style.display = 'block';
+                } else {
+                    element.style.display = 'none';
+                }
+            });
+
+            // Update button text
+            if (showTransliteration) {
+                transliterationToggle.textContent = 'উচ্চারণ লুকান';
+            } else {
+                transliterationToggle.textContent = 'উচ্চারণ দেখান';
+            }
+
+            console.log("Transliteration display updated. Show:", showTransliteration);
+        }
+
+        console.log("Transliteration toggle setup complete");
+    } else {
+        console.error("Transliteration toggle button not found!");
+    }
+
     // Go to top button
     var btn = document.getElementById("goTopBtn");
     if (btn) {
