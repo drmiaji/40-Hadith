@@ -73,7 +73,7 @@ class WebViewActivity : BaseActivity() {
             toolbar.navigationIcon = wrapped
         }
 
-        webView = findViewById(R.id.webview) // <-- Use class property, not local variable!
+        webView = findViewById(R.id.webview)
         val progressBar = findViewById<ProgressBar>(R.id.progressBar)
 
         webView.webViewClient = object : WebViewClient() {
@@ -88,15 +88,20 @@ class WebViewActivity : BaseActivity() {
         }
 
         webView.settings.apply {
-            javaScriptEnabled = false
+            javaScriptEnabled = true // FIXED: Enable JavaScript for theme toggle
             useWideViewPort = true
             loadWithOverviewMode = true
             builtInZoomControls = true
             displayZoomControls = false
             textZoom = 110
+            domStorageEnabled = true // Enable DOM storage
+            allowFileAccess = true
+            allowContentAccess = true
         }
 
-        webView.setOnTouchListener { _, event -> gestureDetector.onTouchEvent(event) } // <-- Attach gesture detector
+        // JavaScript interface removed for compatibility
+
+        webView.setOnTouchListener { _, event -> gestureDetector.onTouchEvent(event) }
 
         val externalUrl = intent.getStringExtra("url")
         val hadithId = intent.getIntExtra("hadith_id", -1)
@@ -104,7 +109,7 @@ class WebViewActivity : BaseActivity() {
         if (externalUrl != null) {
             webView.loadUrl(externalUrl)
         } else if (hadithId != -1) {
-            chapters = loadHadiths(this) // <-- Load all hadiths
+            chapters = loadHadiths(this)
             currentIndex = chapters.indexOfFirst { it.id == hadithId }.takeIf { it >= 0 } ?: 0
 
             if (chapters.isNotEmpty() && currentIndex in chapters.indices) {
@@ -157,24 +162,25 @@ class WebViewActivity : BaseActivity() {
                         "dark" else "light"
                 }
             }
-            val html = """
-                <html>
-                <head>
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <link rel="stylesheet" type="text/css" href="file:///android_asset/contents/style.css">
-                </head>
-                <body class="$themeClass">
-                    <h2>${hadith.title}</h2>
-                    <div class="arabic">${hadith.arabic}</div>
-                    <div class="transliteration">${hadith.transliteration}</div>
-                    <div class="translation">${hadith.translation}</div>
-                    <div class="reference">${hadith.reference}</div>
-                </body>
-                </html>
+
+            // FIXED: Use base.html template for consistency
+            val baseHtml = assets.open("contents/base.html").bufferedReader().use { it.readText() }
+            val contentHtml = """
+                <h2>${hadith.title}</h2>
+                <div class="arabic">${hadith.arabic}</div>
+                <div class="transliteration">${hadith.transliteration}</div>
+                <div class="translation">${hadith.translation}</div>
+                <div class="reference">${hadith.reference}</div>
             """.trimIndent()
+
+            val fullHtml = baseHtml
+                .replace("{{CONTENT}}", contentHtml)
+                .replace("{{THEME}}", themeClass)
+                .replace("{{STYLE}}", "")
+
             webView.loadDataWithBaseURL(
-                "file:///android_asset/",
-                html,
+                "file:///android_asset/contents/",
+                fullHtml,
                 "text/html",
                 "utf-8",
                 null
