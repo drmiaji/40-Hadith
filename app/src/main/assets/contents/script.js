@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const showTransliteration = document.body.classList.contains("show-transliteration");
 
         let text = "";
-        if (!isDark && showTransliteration) text = "🌙 উচ্চারণসহ";
+        if (!isDark && showTransliteration) text = "☀️ উচ্চারণসহ";
         else if (isDark && showTransliteration) text = "🌙 উচ্চারণসহ (ডার্ক)";
         else if (isDark && !showTransliteration) text = "🌙 উচ্চারণবিহীন";
         else text = "☀️ উচ্চারণবিহীন";
