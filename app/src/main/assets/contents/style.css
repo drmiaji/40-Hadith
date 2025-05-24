@@ -1,3 +1,26 @@
+.top-button {
+    padding: 8px 14px;
+    font-size: 16px;
+    border: 1px solid #ccc; /* light gray border */
+    border-radius: 6px;
+    background-color: #f9f9f9; /* very light background */
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.top-button:hover {
+    background-color: #eaeaea; /* slightly darker on hover */
+    border-color: #bbb; /* slightly darker border on hover */
+}
+
+body.show-transliteration .transliteration {
+    display: block;
+}
+.transliteration {
+    display: none;
+}
+
 /* ========== FONT DECLARATIONS ========== */
 @font-face {
     font-family: 'Solaimanlipi';

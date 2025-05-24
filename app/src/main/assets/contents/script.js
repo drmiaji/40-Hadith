@@ -1,139 +1,76 @@
-function onWindowClick(e) {
-    const tocTitle = document.querySelector(".toc .title");
-    const tocList = document.getElementById("toc-ul");
+document.addEventListener("DOMContentLoaded", function () {
+    const html = document.documentElement;
+    const modeBtn = document.getElementById("modeToggle");
 
-    if (tocTitle && (e.target === tocTitle || tocTitle.contains(e.target))) {
-        if (tocList) {
-            tocList.style.display = tocList.style.display === "none" ? "block" : "none";
-        }
-    }
-}
+    const updateMode = () => {
+        const isDark = html.classList.contains("dark");
+        const showTransliteration = document.body.classList.contains("show-transliteration");
 
-// All DOMContentLoaded logic in one place:
-document.addEventListener("DOMContentLoaded", function() {
-    console.log("DOM loaded, setting up theme toggle...");
+        let text = "";
+        if (!isDark && showTransliteration) text = "🌙 উচ্চারণসহ";
+        else if (isDark && showTransliteration) text = "🌙 উচ্চারণসহ (ডার্ক)";
+        else if (isDark && !showTransliteration) text = "🌙 উচ্চারণবিহীন";
+        else text = "☀️ উচ্চারণবিহীন";
 
-    // Theme toggle - FIXED VERSION
-    var toggle = document.getElementById('themeToggle');
-    if (toggle) {
-        toggle.onclick = function(e) {
-            e.preventDefault();
-            e.stopPropagation();
+        modeBtn.textContent = text;
+    };
 
-            const html = document.documentElement;
-            console.log("Before toggle - classes:", html.className);
-            console.log("Has dark class:", html.classList.contains('dark'));
+    const applyMode = (modeIndex) => {
+        const modes = [
+            { dark: false, translit: true },
+            { dark: true, translit: true },
+            { dark: true, translit: false },
+            { dark: false, translit: false },
+        ];
+        const mode = modes[modeIndex];
 
-            // Simple toggle - if it has 'dark', remove it; if not, add it
-            if (html.classList.contains('dark')) {
-                html.classList.remove('dark');
-                console.log("Removed dark class - switched to LIGHT mode");
-            } else {
-                html.classList.add('dark');
-                console.log("Added dark class - switched to DARK mode");
-            }
+        html.classList.toggle("dark", mode.dark);
+        document.body.classList.toggle("show-transliteration", mode.translit);
 
-            console.log("After toggle - classes:", html.className);
-            console.log("Has dark class now:", html.classList.contains('dark'));
-
-            // Force repaint
-            html.style.display = 'none';
-            html.offsetHeight; // Trigger reflow
-            html.style.display = '';
-
-            return false;
-        };
-
-        console.log("Theme toggle setup complete");
-        console.log("Initial theme:", document.documentElement.classList.contains('dark') ? 'DARK' : 'LIGHT');
-    } else {
-        console.error("Theme toggle button not found!");
-    }
-
-    // Transliteration toggle functionality
-    var transliterationToggle = document.getElementById('transliterationToggle');
-    if (transliterationToggle) {
-        console.log("Setting up transliteration toggle...");
-
-        var showTransliteration = true; // Default state
-
-        // Load saved preference from localStorage
         try {
-            var saved = localStorage.getItem('showTransliteration');
-            if (saved !== null) {
-                showTransliteration = saved === 'true';
-                console.log("Loaded transliteration preference:", showTransliteration);
-            }
-        } catch (e) {
-            console.warn("localStorage not available for transliteration preference");
-        }
+            localStorage.setItem("modeIndex", modeIndex);
+        } catch (e) {}
 
-        // Apply initial state
-        updateTransliterationDisplay();
+        updateMode();
+    };
 
-        // Add click event listener
-        transliterationToggle.onclick = function(e) {
-            e.preventDefault();
-            e.stopPropagation();
+    let modeIndex = 0;
+    try {
+        modeIndex = parseInt(localStorage.getItem("modeIndex")) || 0;
+    } catch (e) {}
 
-            showTransliteration = !showTransliteration;
-            console.log("Transliteration toggled to:", showTransliteration);
+    applyMode(modeIndex);
 
-            updateTransliterationDisplay();
+    modeBtn.addEventListener("click", () => {
+        modeIndex = (modeIndex + 1) % 4;
+        applyMode(modeIndex);
+    });
 
-            // Save preference
-            try {
-                localStorage.setItem('showTransliteration', showTransliteration.toString());
-                console.log("Transliteration preference saved");
-            } catch (e) {
-                console.warn("Could not save transliteration preference to localStorage");
-            }
+    // Initial transliteration display setup
+    const translits = document.querySelectorAll(".transliteration");
+    const observer = new MutationObserver(updateMode);
+    observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
 
-            return false;
-        };
+    const updateTransliterationDisplay = () => {
+        const show = document.body.classList.contains("show-transliteration");
+        translits.forEach(el => el.style.display = show ? "block" : "none");
+    };
 
-        function updateTransliterationDisplay() {
-            var transliterationElements = document.querySelectorAll('.transliteration');
-            console.log("Found", transliterationElements.length, "transliteration elements");
+    updateTransliterationDisplay();
+    new MutationObserver(updateTransliterationDisplay).observe(document.body, {
+        attributes: true,
+        attributeFilter: ["class"]
+    });
 
-            transliterationElements.forEach(function(element) {
-                if (showTransliteration) {
-                    element.style.display = 'block';
-                } else {
-                    element.style.display = 'none';
-                }
-            });
-
-            // Update button text
-            if (showTransliteration) {
-                transliterationToggle.textContent = 'উচ্চারণ লুকান';
-            } else {
-                transliterationToggle.textContent = 'উচ্চারণ দেখান';
-            }
-
-            console.log("Transliteration display updated. Show:", showTransliteration);
-        }
-
-        console.log("Transliteration toggle setup complete");
-    } else {
-        console.error("Transliteration toggle button not found!");
-    }
-
-    // Go to top button
-    var btn = document.getElementById("goTopBtn");
+    // Scroll button
+    const btn = document.getElementById("goTopBtn");
     if (btn) {
-        window.onscroll = function() {
-            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-                btn.style.display = "block";
-            } else {
-                btn.style.display = "none";
-            }
+        window.onscroll = function () {
+            btn.style.display = (document.documentElement.scrollTop > 200 || document.body.scrollTop > 200) ? "block" : "none";
         };
-        btn.onclick = function() {
-            window.scrollTo({top: 0, behavior: "smooth"});
+        btn.onclick = function () {
+            window.scrollTo({ top: 0, behavior: "smooth" });
         };
-        btn.style.display = "none"; // Hide by default
+        btn.style.display = "none";
     }
 });
-
-window.addEventListener("click", onWindowClick);
