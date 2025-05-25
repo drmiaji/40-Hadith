@@ -2,7 +2,6 @@ package com.drmiaji.fortyahadith.adapter
 
 import android.graphics.Color
 import android.graphics.Typeface
-import android.os.Build
 import android.text.Html
 import android.text.Spannable
 import android.text.SpannableStringBuilder
@@ -32,7 +31,7 @@ class HadithAdapter(
     inner class ViewHolder(private val binding: ItemChapterBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Hadith) {
             val context = binding.root.context
-            val typeface = Typeface.createFromAsset(context.assets, "font/solaimanlipi.ttf")
+            val typeface = Typeface.createFromAsset(context.assets, "fonts/solaimanlipi.ttf")
             // Highlight the search term if present
             if (searchQuery.isNotBlank()) {
                 binding.chapterTitle.text = highlightSearch(item.title, searchQuery)

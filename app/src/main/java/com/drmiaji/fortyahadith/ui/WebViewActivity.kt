@@ -16,7 +16,6 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.net.toUri
 import com.drmiaji.fortyahadith.R
@@ -226,7 +225,7 @@ class WebViewActivity : BaseActivity() {
         for (i in 0 until toolbar.childCount) {
             val view = toolbar.getChildAt(i)
             if (view is TextView && view.text == toolbar.title) {
-                val typeface = Typeface.createFromAsset(assets, "font/solaimanlipi.ttf")
+                val typeface = Typeface.createFromAsset(assets, "fonts/solaimanlipi.ttf")
                 view.typeface = typeface
                 break
             }

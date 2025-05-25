@@ -1,18 +1,20 @@
 package com.drmiaji.fortyahadith.activity
 
 import android.content.Intent
+import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.net.toUri
 import com.drmiaji.fortyahadith.R
+import com.drmiaji.fortyahadith.ui.theme.FontManager
 import com.google.android.material.appbar.MaterialToolbar
 
 class About : AppCompatActivity() {
@@ -27,8 +29,9 @@ class About : AppCompatActivity() {
         // Add this line to hide the default title
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        // Set custom title directly to the embedded TextView
         titleTextView.text = getString(R.string.app_name)
+        val typeface = Typeface.createFromAsset(assets, "fonts/solaimanlipi.ttf")
+        titleTextView.typeface = typeface
 
         // Optional: Tint the back arrow (navigation icon)
         val navIconColor = ContextCompat.getColor(this, R.color.nav_icon_color)
@@ -44,11 +47,34 @@ class About : AppCompatActivity() {
                 ContextCompat.getColor(this, R.color.nav_icon_color) // use a visible color
             )
         }
+        applyCustomFonts()
+    }
+
+    private fun applyCustomFonts() {
+        // Get your custom fonts
+        val solaimanLipiFont = FontManager.getSolaimanLipiTypeface(this)
+        FontManager.getQuranArabicTypeface(this)
+
+        // Apply to Button
+        findViewById<Button>(R.id.rateUs).apply {
+            typeface = solaimanLipiFont
+        }
+
+        // Apply to TextViews
+        findViewById<TextView>(R.id.appNameText).apply {
+            typeface = solaimanLipiFont
+        }
+
+        findViewById<TextView>(R.id.aboutUsText).apply {
+            typeface = solaimanLipiFont
+            // Use quranArabicFont if this TextView contains Arabic text
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val mMenuInflater = menuInflater
         mMenuInflater.inflate(R.menu.action_menu, menu)
+        menu?.findItem(R.id.action_search)?.isVisible = false
         return true
     }
 
@@ -69,9 +95,10 @@ class About : AppCompatActivity() {
                 startActivity(Intent.createChooser(myIntent, "Share using!"))
             }
             R.id.more_apps -> {
-                val moreApp = Intent(Intent.ACTION_VIEW)
-                moreApp.setData("https://play.google.com/store/apps/details?id=com.drmiaji.fortyahadith".toUri())
-                startActivity(moreApp)
+                val moreAppsIntent = Intent(Intent.ACTION_VIEW)
+                moreAppsIntent.data =
+                    "https://play.google.com/store/apps/dev?id=5204491413792621474".toUri()
+                startActivity(moreAppsIntent)
             }
             R.id.action_about_us -> {
                 startActivity(Intent(this, About::class.java))

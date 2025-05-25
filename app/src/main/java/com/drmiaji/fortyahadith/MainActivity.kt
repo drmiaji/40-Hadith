@@ -91,6 +91,7 @@ import com.drmiaji.fortyahadith.ui.theme.MyAppTheme
 import com.drmiaji.fortyahadith.ui.theme.topBarColors
 import kotlinx.coroutines.launch
 import androidx.core.net.toUri
+import com.drmiaji.fortyahadith.ui.theme.FontManager
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -200,7 +201,7 @@ fun MainScreen(
                                     modifier = Modifier.padding(start = 24.dp, top = 4.dp, bottom = 4.dp),
                                     style = MaterialTheme.typography.labelLarge.copy(
                                         fontWeight = FontWeight.Bold,
-                                        fontFamily = FontFamily(Font(R.font.solaimanlipi))
+                                        fontFamily = FontManager.getSolaimanLipiFontFamily()
                                     )
                                 )
                             }
@@ -250,7 +251,7 @@ fun MainScreen(
                     title = { Text(text = stringResource(id = R.string.app_name),
                         modifier = Modifier.fillMaxWidth(),
                         style = TextStyle(
-                            fontFamily = FontFamily(Font(R.font.solaimanlipi)),
+                            fontFamily = FontManager.getSolaimanLipiFontFamily(),
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center,
                             fontSize = 20.sp
@@ -418,7 +419,7 @@ fun MyLogo(modifier: Modifier = Modifier) {
                         modifier = Modifier.fillMaxWidth(), // Ensures horizontal centering space
                         style = TextStyle(
                             fontSize = 22.sp,
-                            fontFamily = FontFamily(Font(R.font.solaimanlipi)),
+                            fontFamily = FontManager.getSolaimanLipiFontFamily(),
                             fontWeight = FontWeight.Bold,
                             letterSpacing = 0.3.sp,
                             textAlign = TextAlign.Center, // Aligns text within its bounds
@@ -438,7 +439,7 @@ fun MyLogo(modifier: Modifier = Modifier) {
                         text = "ডক্টর আব্দুল বাতেন মিয়াজী",
                         style = TextStyle(
                             fontSize = 16.sp,
-                            fontFamily = FontFamily(Font(R.font.solaimanlipi)),
+                            fontFamily = FontManager.getSolaimanLipiFontFamily(),
                             letterSpacing = 0.2.sp
                         ),
                         color = colorScheme.onPrimary.copy(alpha = 0.9f)
@@ -523,7 +524,7 @@ fun DrawerCardItem(
                         text = item.title,
                         style = TextStyle(
                             fontSize = 16.sp,
-                            fontFamily = FontFamily(Font(R.font.solaimanlipi))
+                            fontFamily = FontManager.getSolaimanLipiFontFamily()
                         ),
                         color = MaterialTheme.colorScheme.onSurface
                     )
@@ -532,7 +533,7 @@ fun DrawerCardItem(
                             text = item.subtitle,
                             style = TextStyle(
                                 fontSize = 13.sp,
-                                fontFamily = FontFamily(Font(R.font.solaimanlipi))
+                                fontFamily = FontManager.getSolaimanLipiFontFamily()
                             ),
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )

@@ -8,9 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
 import android.widget.TextView
-import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.net.toUri
 import androidx.core.view.get
@@ -23,9 +21,7 @@ import com.drmiaji.fortyahadith.activity.BaseActivity
 import com.drmiaji.fortyahadith.activity.SettingsActivity
 import com.drmiaji.fortyahadith.adapter.HadithAdapter
 import com.drmiaji.fortyahadith.data.Hadith
-import com.drmiaji.fortyahadith.models.ChapterItem
 import com.drmiaji.fortyahadith.utils.loadHadiths
-import com.drmiaji.fortyahadith.viewmodel.ChapterViewModel
 import com.google.android.material.appbar.MaterialToolbar
 
 
@@ -45,7 +41,7 @@ class ChapterListActivity : BaseActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         titleTextView.text = getString(R.string.app_name)
-        val typeface = Typeface.createFromAsset(assets, "font/solaimanlipi.ttf")
+        val typeface = Typeface.createFromAsset(assets, "fonts/solaimanlipi.ttf")
         titleTextView.typeface = typeface
 
         val iconColor = ContextCompat.getColor(this, R.color.toolbar_icon_color)

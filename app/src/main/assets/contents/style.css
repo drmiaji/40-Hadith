@@ -22,13 +22,13 @@ body.show-transliteration .transliteration {
 /* ========== FONT DECLARATIONS ========== */
 @font-face {
     font-family: 'Solaimanlipi';
-    src: url('../font/solaimanlipi.ttf') format('truetype');
+    src: url('../fonts/solaimanlipi.ttf') format('truetype');
     font-display: swap;
 }
 
 @font-face {
     font-family: 'quran-arabic';
-    src: url('../font/indopak.ttf') format('truetype');
+    src: url('../fonts/indopak.ttf') format('truetype');
     font-display: swap;
 }
 

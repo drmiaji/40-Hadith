@@ -12,7 +12,7 @@ android {
         applicationId = "com.drmiaji.fortyahadith"
         minSdk = 24
         targetSdk = 35
-        versionCode = 10
+        versionCode = 11
         versionName = "2.0"
     }
 
@@ -43,7 +43,7 @@ dependencies {
 // Core AndroidX
 
     implementation(libs.material)
-    implementation(libs.androidx.constraintlayout)
+  //  implementation(libs.androidx.constraintlayout)
 
     // RecyclerView
     implementation(libs.androidx.recyclerview)
@@ -57,7 +57,7 @@ dependencies {
     implementation(libs.kotlin.stdlib)
 
     // Optional: Asynchronous layout inflater (if using)
-    implementation(libs.androidx.asynclayoutinflater)
+   // implementation(libs.androidx.asynclayoutinflater)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)

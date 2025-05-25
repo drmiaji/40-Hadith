@@ -13,7 +13,7 @@
 
     <style name="CustomToolbarTitleTextAppearance" parent="TextAppearance.Material3.TitleLarge">
         <item name="android:textColor">@color/on_primary</item>
-        <item name="android:fontFamily">@font/solaimanlipi</item> <!-- Replace with your fonts -->
+        <!-- <item name="android:fontFamily">@font/solaimanlipi</item>  Replace with your fonts -->
     </style>
 
     <!-- Buttons -->
