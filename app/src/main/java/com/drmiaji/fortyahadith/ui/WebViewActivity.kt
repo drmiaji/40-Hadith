@@ -3,6 +3,7 @@ package com.drmiaji.fortyahadith.ui
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.GestureDetector
 import android.view.Menu
@@ -225,7 +226,7 @@ class WebViewActivity : BaseActivity() {
         for (i in 0 until toolbar.childCount) {
             val view = toolbar.getChildAt(i)
             if (view is TextView && view.text == toolbar.title) {
-                val typeface = ResourcesCompat.getFont(this, R.font.solaimanlipi)
+                val typeface = Typeface.createFromAsset(assets, "font/solaimanlipi.ttf")
                 view.typeface = typeface
                 break
             }

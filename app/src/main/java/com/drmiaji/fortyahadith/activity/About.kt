@@ -1,6 +1,7 @@
 package com.drmiaji.fortyahadith.activity
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -85,9 +86,9 @@ class About : AppCompatActivity() {
     fun goToChap(view: View) {
         val id = view.id
         if (id == R.id.rateUs) {
-            val moreApp = Intent(Intent.ACTION_VIEW)
-            moreApp.setData("https://play.google.com/store/search?q=drmiaji".toUri())
-            startActivity(moreApp)
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = "https://play.google.com/store/apps/details?id=$packageName".toUri()
+            startActivity(intent)
         } else if (id == R.id.link) {
             val link = Intent(Intent.ACTION_VIEW)
             link.setData("http://www.drmiaji.com".toUri())

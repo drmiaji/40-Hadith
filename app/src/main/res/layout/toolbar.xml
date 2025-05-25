@@ -6,7 +6,7 @@
     android:background="@color/cardview_dark_background"
     android:elevation="4dp">
 
-    <!-- Centered TextView with custom font -->
+    <!-- Centered TextView with custom fonts -->
     <TextView
         android:id="@+id/toolbar_title"
         android:layout_width="wrap_content"

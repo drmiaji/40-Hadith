@@ -2,6 +2,7 @@ package com.drmiaji.fortyahadith.ui
 
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -44,7 +45,7 @@ class ChapterListActivity : BaseActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         titleTextView.text = getString(R.string.app_name)
-        val typeface = ResourcesCompat.getFont(this, R.font.solaimanlipi)
+        val typeface = Typeface.createFromAsset(assets, "font/solaimanlipi.ttf")
         titleTextView.typeface = typeface
 
         val iconColor = ContextCompat.getColor(this, R.color.toolbar_icon_color)
