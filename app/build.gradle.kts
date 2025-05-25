@@ -67,8 +67,7 @@ dependencies {
     // Navigation (Compose)
     implementation(libs.androidx.navigation.compose.jvmstubs)
 
-    // Material Design
-    implementation(libs.androidx.material3)            // Material 3 Compose support
+    // Material Design           // Material 3 Compose support
     implementation(libs.material3)                      // Possibly same as above, verify usage
     implementation(libs.material)                       // Material Design 2 library (Views)
     implementation(libs.androidx.material.icons.core)
