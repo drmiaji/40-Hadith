@@ -40,43 +40,49 @@ android {
 }
 
 dependencies {
-// Core AndroidX
+    // Kotlin
+    implementation(libs.kotlin.stdlib)
 
-    implementation(libs.material)
-  //  implementation(libs.androidx.constraintlayout)
+    // AndroidX Core and AppCompat
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
 
     // RecyclerView
     implementation(libs.androidx.recyclerview)
 
-    // ViewModel + LiveData
+    // Lifecycle: ViewModel, LiveData, Runtime
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
 
-    // Kotlin
-    implementation(libs.kotlin.stdlib)
-
-    // Optional: Asynchronous layout inflater (if using)
-   // implementation(libs.androidx.asynclayoutinflater)
-
-    implementation(libs.androidx.core.ktx)
+    // Jetpack Compose
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
-    implementation(libs.androidx.navigation.runtime.android)
-    implementation(libs.androidx.navigation.compose.jvmstubs)
-    implementation(libs.androidx.ui.test.android)
-    implementation(libs.androidx.preference.ktx)
-    implementation(libs.firebase.crashlytics.buildtools)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-    implementation(libs.androidx.appcompat)
+
+    // Navigation (Compose)
+    implementation(libs.androidx.navigation.compose.jvmstubs)
 
     // Material Design
+    implementation(libs.androidx.material3)            // Material 3 Compose support
+    implementation(libs.material3)                      // Possibly same as above, verify usage
+    implementation(libs.material)                       // Material Design 2 library (Views)
     implementation(libs.androidx.material.icons.core)
     implementation(libs.androidx.material.icons.extended)
+
+    // Preferences
+    implementation(libs.androidx.preference.ktx)
+
+    // Async Layout Inflater (optional)
+    implementation(libs.androidx.asynclayoutinflater)
+
+    // Firebase Crashlytics (build tools)
+    implementation(libs.firebase.crashlytics.buildtools)
+
+    // JSON Parsing
     implementation(libs.gson)
 }
