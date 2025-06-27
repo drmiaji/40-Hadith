@@ -313,7 +313,7 @@ fun MainScreen(
                 contentAlignment = Alignment.Center
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.coverpage),
+                    painter = painterResource(id = R.drawable.icon),
                     contentDescription = "App Logo",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
