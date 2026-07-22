@@ -2,7 +2,6 @@ package com.drmiaji.fortyahadith.ui
 
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.Typeface
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -21,6 +20,7 @@ import com.drmiaji.fortyahadith.activity.BaseActivity
 import com.drmiaji.fortyahadith.activity.SettingsActivity
 import com.drmiaji.fortyahadith.adapter.HadithAdapter
 import com.drmiaji.fortyahadith.data.Hadith
+import com.drmiaji.fortyahadith.ui.theme.FontManager
 import com.drmiaji.fortyahadith.utils.loadHadiths
 import com.google.android.material.appbar.MaterialToolbar
 
@@ -41,8 +41,7 @@ class ChapterListActivity : BaseActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         titleTextView.text = getString(R.string.app_name)
-        val typeface = Typeface.createFromAsset(assets, "fonts/solaimanlipi.ttf")
-        titleTextView.typeface = typeface
+        titleTextView.typeface = FontManager.getSolaimanLipiTypeface(this)
 
         val iconColor = ContextCompat.getColor(this, R.color.toolbar_icon_color)
         toolbar.navigationIcon?.let { drawable ->
@@ -101,8 +100,7 @@ class ChapterListActivity : BaseActivity() {
 
     // Handle the back button click
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val itemId = item.itemId
-        when (itemId) {
+        return when (item.itemId) {
             android.R.id.home -> {
                 onBackPressedDispatcher.onBackPressed()
                 true
@@ -115,19 +113,23 @@ class ChapterListActivity : BaseActivity() {
                 myIntent.putExtra(Intent.EXTRA_TEXT, shareSub)
                 myIntent.putExtra(Intent.EXTRA_TEXT, shareBody)
                 startActivity(Intent.createChooser(myIntent, "Share using!"))
+                true
             }
             R.id.more_apps -> {
                 val moreApp = Intent(Intent.ACTION_VIEW)
                 moreApp.setData("https://play.google.com/store/apps/dev?id=5204491413792621474".toUri())
                 startActivity(moreApp)
+                true
             }
             R.id.action_about_us -> {
                 startActivity(Intent(this, About::class.java))
+                true
             }
             R.id.settings -> {
                 startActivity(Intent(this, SettingsActivity::class.java))
+                true
             }
+            else -> super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
     }
 }

@@ -4,8 +4,12 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.core.net.toUri
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
@@ -87,15 +91,39 @@ import com.drmiaji.fortyahadith.activity.About
 import com.drmiaji.fortyahadith.activity.SettingsActivity
 import com.drmiaji.fortyahadith.ui.ChapterListActivity
 import com.drmiaji.fortyahadith.ui.WebViewActivity
+import com.drmiaji.fortyahadith.ui.theme.FontManager
 import com.drmiaji.fortyahadith.ui.theme.MyAppTheme
 import com.drmiaji.fortyahadith.ui.theme.topBarColors
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.play.core.appupdate.AppUpdateManager
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.appupdate.AppUpdateOptions
+import com.google.android.play.core.install.InstallStateUpdatedListener
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.InstallStatus
+import com.google.android.play.core.install.model.UpdateAvailability
 import kotlinx.coroutines.launch
-import androidx.core.net.toUri
-import com.drmiaji.fortyahadith.ui.theme.FontManager
 
 class MainActivity : ComponentActivity() {
+    private lateinit var appUpdateManager: AppUpdateManager
+
+    private val appUpdateLauncher = registerForActivityResult(
+        ActivityResultContracts.StartIntentSenderForResult()
+    ) { result: ActivityResult ->
+        if (result.resultCode != RESULT_OK) {
+            Toast.makeText(this, R.string.update_cancelled, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private val updateInstallListener = InstallStateUpdatedListener { state ->
+        if (state.installStatus() == InstallStatus.DOWNLOADED) {
+            showUpdateReadySnackbar()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        appUpdateManager = AppUpdateManagerFactory.create(this)
 
         setContent {
             MyAppTheme {
@@ -106,6 +134,52 @@ class MainActivity : ComponentActivity() {
                 )
             }
         }
+
+        checkForAppUpdate()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (::appUpdateManager.isInitialized) {
+            appUpdateManager.appUpdateInfo.addOnSuccessListener { appUpdateInfo ->
+                if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) {
+                    showUpdateReadySnackbar()
+                }
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        if (::appUpdateManager.isInitialized) {
+            appUpdateManager.unregisterListener(updateInstallListener)
+        }
+        super.onDestroy()
+    }
+
+    private fun checkForAppUpdate() {
+        appUpdateManager.registerListener(updateInstallListener)
+        appUpdateManager.appUpdateInfo.addOnSuccessListener { appUpdateInfo ->
+            if (
+                appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE &&
+                appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)
+            ) {
+                appUpdateManager.startUpdateFlowForResult(
+                    appUpdateInfo,
+                    appUpdateLauncher,
+                    AppUpdateOptions.newBuilder(AppUpdateType.FLEXIBLE).build()
+                )
+            }
+        }
+    }
+
+    private fun showUpdateReadySnackbar() {
+        Snackbar.make(
+            findViewById(android.R.id.content),
+            R.string.update_downloaded,
+            Snackbar.LENGTH_INDEFINITE
+        ).setAction(R.string.restart) {
+            appUpdateManager.completeUpdate()
+        }.show()
     }
 
     private fun goToContents() {

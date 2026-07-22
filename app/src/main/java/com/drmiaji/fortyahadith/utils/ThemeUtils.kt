@@ -8,8 +8,8 @@ import androidx.core.content.edit
 import com.drmiaji.fortyahadith.MainActivity
 
 object ThemeUtils {
-    private const val PREF_NAME = "theme_pref"
-    private const val KEY_THEME_MODE = "theme_mode"
+    const val PREF_NAME = "theme_pref"
+    const val KEY_THEME_MODE = "theme_mode"
 
     const val THEME_LIGHT = "light"
     const val THEME_DARK = "dark"

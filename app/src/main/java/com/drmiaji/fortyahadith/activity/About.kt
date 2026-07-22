@@ -1,8 +1,6 @@
 package com.drmiaji.fortyahadith.activity
 
 import android.content.Intent
-import android.graphics.Typeface
-import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -30,8 +28,7 @@ class About : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         titleTextView.text = getString(R.string.app_name)
-        val typeface = Typeface.createFromAsset(assets, "fonts/solaimanlipi.ttf")
-        titleTextView.typeface = typeface
+        titleTextView.typeface = FontManager.getSolaimanLipiTypeface(this)
 
         // Optional: Tint the back arrow (navigation icon)
         val navIconColor = ContextCompat.getColor(this, R.color.nav_icon_color)
@@ -79,8 +76,7 @@ class About : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val itemId = item.itemId
-        when (itemId) {
+        return when (item.itemId) {
             android.R.id.home -> {
                 onBackPressedDispatcher.onBackPressed()
                 true
@@ -93,21 +89,25 @@ class About : AppCompatActivity() {
                 myIntent.putExtra(Intent.EXTRA_TEXT, shareSub)
                 myIntent.putExtra(Intent.EXTRA_TEXT, shareBody)
                 startActivity(Intent.createChooser(myIntent, "Share using!"))
+                true
             }
             R.id.more_apps -> {
                 val moreAppsIntent = Intent(Intent.ACTION_VIEW)
                 moreAppsIntent.data =
                     "https://play.google.com/store/apps/dev?id=5204491413792621474".toUri()
                 startActivity(moreAppsIntent)
+                true
             }
             R.id.action_about_us -> {
                 startActivity(Intent(this, About::class.java))
+                true
             }
             R.id.settings -> {
                 startActivity(Intent(this, SettingsActivity::class.java))
+                true
             }
+            else -> super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
     }
 
     fun goToChap(view: View) {

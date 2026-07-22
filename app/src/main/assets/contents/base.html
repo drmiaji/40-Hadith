@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="bn" class="{{THEME}}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,12 +8,12 @@
     <script defer src="script.js"></script>
 </head>
 <body>
-<div style="display: flex; justify-content: flex-start; gap: 10px; margin-bottom: 10px; flex-wrap: wrap;">
-    <button id="modeToggle" class="top-button">🌙 উচ্চারণসহ</button>
+<div class="reader-controls">
+    <button id="modeToggle" class="top-button">Show pronunciation</button>
 </div>
 
 {{CONTENT}}
 
-<button id="goTopBtn" title="Go to top">↑</button>
+<button id="goTopBtn" title="Go to top">&uarr;</button>
 </body>
 </html>

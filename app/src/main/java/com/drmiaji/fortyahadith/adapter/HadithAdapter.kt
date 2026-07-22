@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.drmiaji.fortyahadith.data.Hadith
 import com.drmiaji.fortyahadith.databinding.ItemChapterBinding
+import com.drmiaji.fortyahadith.ui.theme.FontManager
 import com.drmiaji.fortyahadith.utils.HadithDiffCallback
 
 class HadithAdapter(
@@ -31,14 +32,14 @@ class HadithAdapter(
     inner class ViewHolder(private val binding: ItemChapterBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Hadith) {
             val context = binding.root.context
-            val typeface = Typeface.createFromAsset(context.assets, "fonts/solaimanlipi.ttf")
+            val typeface = FontManager.getSolaimanLipiTypeface(context)
+            val title = stripHtml(item.title)
             // Highlight the search term if present
             if (searchQuery.isNotBlank()) {
-                binding.chapterTitle.text = highlightSearch(item.title, searchQuery)
+                binding.chapterTitle.text = highlightSearch(title, searchQuery)
             } else {
-                binding.chapterTitle.text = item.title
+                binding.chapterTitle.text = title
             }
-            binding.chapterTitle.text = stripHtml(item.title)
             binding.chapterTitle.setTypeface(typeface, Typeface.BOLD)
             binding.root.setOnClickListener { onClick(item) }
         }

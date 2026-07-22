@@ -20,6 +20,9 @@
     <string name="about_us2">প্রোগ্রামিংঃ\nডক্টর আব্দুল বাতেন মিয়াজী\n\nইসলামী বিষয়াদি সম্পর্কে জানতে এবং অনলাইনে গ্রন্থাগার থেকে গুরুত্বপূর্ণ কিতাব ডাউনলোড করতে নিচের লিংকে ভিজিট করুন।</string>
     <string name="settings">Settings</string>
     <string name="search">Search</string>
+    <string name="update_downloaded">An update has been downloaded.</string>
+    <string name="restart">Restart</string>
+    <string name="update_cancelled">Update cancelled.</string>
     <string name="dr_abdul_baten_miaji">Dr Abdul Baten Miaji</string>
     <string name="email">bmiaji@gmail.com</string>
     <string name="be_connected">Be Connected</string>

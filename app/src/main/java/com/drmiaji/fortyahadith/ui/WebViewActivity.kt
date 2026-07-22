@@ -3,7 +3,6 @@ package com.drmiaji.fortyahadith.ui
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.Typeface
 import android.os.Bundle
 import android.view.GestureDetector
 import android.view.Menu
@@ -23,6 +22,7 @@ import com.drmiaji.fortyahadith.activity.About
 import com.drmiaji.fortyahadith.activity.BaseActivity
 import com.drmiaji.fortyahadith.activity.SettingsActivity
 import com.drmiaji.fortyahadith.data.Hadith
+import com.drmiaji.fortyahadith.ui.theme.FontManager
 import com.drmiaji.fortyahadith.utils.ThemeUtils
 import com.drmiaji.fortyahadith.utils.loadHadiths
 import kotlin.math.abs
@@ -225,8 +225,7 @@ class WebViewActivity : BaseActivity() {
         for (i in 0 until toolbar.childCount) {
             val view = toolbar.getChildAt(i)
             if (view is TextView && view.text == toolbar.title) {
-                val typeface = Typeface.createFromAsset(assets, "fonts/solaimanlipi.ttf")
-                view.typeface = typeface
+                view.typeface = FontManager.getSolaimanLipiTypeface(this)
                 break
             }
         }

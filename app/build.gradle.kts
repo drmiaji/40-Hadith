@@ -1,19 +1,18 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
 }
 
 android {
     namespace = "com.drmiaji.fortyahadith"
-    compileSdk = 35
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.drmiaji.fortyahadith"
         minSdk = 24
-        targetSdk = 35
-        versionCode = 12
-        versionName = "2.1.0"
+        targetSdk = 37
+        versionCode = 14
+        versionName = "2.1.2"
     }
 
     buildTypes {
@@ -29,9 +28,6 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
-    }
-    kotlinOptions {
-        jvmTarget = "17"
     }
     buildFeatures {
         viewBinding = true
@@ -81,6 +77,9 @@ dependencies {
 
     // Firebase Crashlytics (build tools)
     implementation(libs.firebase.crashlytics.buildtools)
+
+    // Google Play in-app updates
+    implementation(libs.play.app.update)
 
     // JSON Parsing
     implementation(libs.gson)

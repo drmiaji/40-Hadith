@@ -7,13 +7,16 @@ import com.drmiaji.fortyahadith.R
 
 class SettingsFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        preferenceManager.sharedPreferencesName = ThemeUtils.PREF_NAME
         setPreferencesFromResource(R.xml.preferences, rootKey)
 
-        // Keep your existing theme preference change listener
-        findPreference<ListPreference>("theme_mode")?.setOnPreferenceChangeListener { _, newValue ->
-            ThemeUtils.saveThemeMode(requireContext(), newValue as String)
-            // No need to recreate the activity here since the theme is applied in onResume
-            true
+        findPreference<ListPreference>(ThemeUtils.KEY_THEME_MODE)?.apply {
+            value = ThemeUtils.getCurrentThemeMode(requireContext())
+            summaryProvider = ListPreference.SimpleSummaryProvider.getInstance()
+            setOnPreferenceChangeListener { _, newValue ->
+                ThemeUtils.saveThemeModeWithoutRestart(requireActivity(), newValue as String)
+                true
+            }
         }
     }
 }

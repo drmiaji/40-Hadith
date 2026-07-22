@@ -1,21 +1,22 @@
 [versions]
-agp = "8.10.1"
-appcompat = "1.7.0"
+agp = "9.3.0"
+appcompat = "1.7.1"
 asynclayoutinflater = "1.1.0"
-gson = "2.13.1"
-kotlin = "2.1.21"
-coreKtx = "1.16.0"
-kotlinStdlib = "2.1.21"
-lifecycleRuntimeKtx = "2.9.0"
-activityCompose = "1.10.1"
-composeBom = "2025.05.01"
-material = "1.12.0"
-material3 = "1.3.2"
+gson = "2.14.0"
+kotlin = "2.4.10"
+coreKtx = "1.19.0"
+kotlinStdlib = "2.4.10"
+lifecycleRuntimeKtx = "2.11.0"
+activityCompose = "1.13.0"
+composeBom = "2026.06.01"
+material = "1.14.0"
+material3 = "1.4.0"
 materialIconsCore = "1.7.8"
 recyclerview = "1.4.0"
-navigationComposeJvmstubs = "2.9.0"
+navigationComposeJvmstubs = "2.9.8"
 preferenceKtx = "1.2.1"
-firebaseCrashlyticsBuildtools = "3.0.3"
+firebaseCrashlyticsBuildtools = "3.0.7"
+playAppUpdate = "2.1.0"
 
 [libraries]
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
@@ -41,9 +42,9 @@ androidx-navigation-compose-jvmstubs = { group = "androidx.navigation", name = "
 androidx-preference-ktx = { group = "androidx.preference", name = "preference-ktx", version.ref = "preferenceKtx" }
 firebase-crashlytics-buildtools = { group = "com.google.firebase", name = "firebase-crashlytics-buildtools", version.ref = "firebaseCrashlyticsBuildtools" }
 material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
+play-app-update = { module = "com.google.android.play:app-update", version.ref = "playAppUpdate" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 
